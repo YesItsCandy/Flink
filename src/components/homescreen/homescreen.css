@@ -27,7 +27,6 @@
 @media (max-width: 1000px) {
 
     #content {
-        display: flex;
         flex-direction: column;
     }
     #welcometext,
