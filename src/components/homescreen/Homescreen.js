@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import "./homescreen.css"
+import Featured from './Featured';
 
 export default class Homescreen extends Component {
     render() {
@@ -15,16 +16,7 @@ export default class Homescreen extends Component {
                       eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
                 sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 </div>
-                <div id="featured">
-                    <h1>Featured</h1>
-                    <div className="image-gallary">
-                        <img className="preview-image" alt="placeholder" src="https://via.placeholder.com/350x150" />
-                        <img className="preview-image" alt="placeholder" src="https://via.placeholder.com/100x100" />
-                        <img className="preview-image" alt="placeholder" src="https://via.placeholder.com/300x150" />
-                        <img className="preview-image" alt="placeholder" src="https://via.placeholder.com/100x200" />
-                        <img className="preview-image" alt="placeholder" src="https://via.placeholder.com/200x300" />
-                    </div>
-                </div>
+                <Featured/>
             </>
         )
     }
