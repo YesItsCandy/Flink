@@ -2,32 +2,6 @@
     color: rgb(0, 89, 255);
 }
 
-#searchbar {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    margin-left: 3vw;
-    margin-right: 3vw;
-}
-
-#searchbar * {
-    display: block;
-}
-
-#searchfield {
-    width: 100%;
-    border-right: none;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-#searchbutton {
-    border-left: none;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    cursor: pointer;
-}
-
 #navlinks .link {
     margin-right: 1vw;
 }
@@ -45,17 +19,6 @@
     }
     #namelogo {
         font-size: 20vw;
-    }
-    #searchbar {
-        width: 90%;
-    }
-    #searchfield {
-        border: 2px solid rgb(167, 167, 167);
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-    }
-    #searchbutton {
-        display: none;
     }
     #navlinks {
         display: flex;
