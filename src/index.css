@@ -1,14 +1,178 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(255, 247, 232);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.link,
+p {
+    color: black;
+    text-decoration: none;
+    font-size: 2vh;
+}
+
+h1 {
+    font-size: 5vh;
+}
+
+h2 {
+    font-size: 3vh;
+}
+
+input[type="text"],
+input[type="search"],
+button {
+    background-color: rgb(253, 255, 240);
+    border: 2px solid rgb(167, 167, 167);
+    color: black;
+    box-shadow: none;
+    border-radius: 5px;
+    font-size: 2vh;
+    outline: none;
+}
+
+#namelogo {
+    color: rgb(0, 89, 255);
+}
+
+#searchbar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-left: 3vw;
+    margin-right: 3vw;
+}
+
+#searchbar * {
+    display: block;
+}
+
+#searchfield {
+    width: 100%;
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#searchbutton {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    cursor: pointer;
+}
+
+#wrapper {
+    padding: 1vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 98vh;
+}
+
+#header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#navlinks .link {
+    margin-right: 1vw;
+}
+
+#content {
+    display: flex;
+    flex-direction: row;
+}
+
+#welcometext,
+#featured {
+    width: 50%;
+    padding: 2vh;
+}
+
+#welcometext p {
+    font-size: 3vh;
+}
+
+#featured h1 {
+    margin-left: 1vh;
+}
+
+.image-gallary {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.preview-image {
+    margin: 1vh;
+    height: 20vh;
+    display: block;
+}
+
+@media (max-width: 1000px) {
+    .link,
+    p {
+        font-size: 3vh;
+    }
+    h1 {
+        font-size: 7vh;
+    }
+    h2 {
+        font-size: 4vh;
+    }
+    #content {
+        display: flex;
+        flex-direction: column;
+    }
+    #welcometext,
+    #featured {
+        width: auto;
+    }
+    #header {
+        flex-direction: column;
+    }
+    #namelogo {
+        font-size: 20vw;
+    }
+    #searchbar {
+        width: 90%;
+    }
+    #searchfield {
+        border: 2px solid rgb(167, 167, 167);
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+    #searchbutton {
+        display: none;
+    }
+    #navlinks {
+        display: flex;
+        justify-content: space-evenly;
+        width: 90%;
+    }
+    #navlinks .link {
+        font-size: 10vw;
+    }
+    .preview-image {
+        width: 90%;
+        height: auto;
+    }
 }
