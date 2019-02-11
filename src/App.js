@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Navbar from './navbar/Navbar';
 
 
 class App extends Component {
@@ -6,17 +7,7 @@ class App extends Component {
     return (
       <div className="App" id="wrapper">
 
-        <div id="header">
-          <h1 id="namelogo">Flink</h1>
-          <div id="searchbar">
-            <input id="searchfield" type="search" placeholder="Search" />
-            <button id="searchbutton">Search</button>
-          </div>
-          <div id="navlinks">
-            <a href="/raffles" className="link">Raffles</a>
-            <a href="/login" className="link">Login</a>
-          </div>
-        </div>
+        <Navbar/>
 
         <div id="content">
           <div id="welcometext">
