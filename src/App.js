@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Navbar from './components/navbar/Navbar';
 import Homescreen from './components/homescreen/Homescreen';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import E404 from './components/error/E404';
 
 
 class App extends Component {
@@ -11,7 +13,12 @@ class App extends Component {
         <Navbar />
 
         <div id="content">
-          <Homescreen />
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Homescreen} />
+              <Route component={E404} status={404}/>
+            </Switch>
+          </Router>
         </div>
 
         <div id="footer">
