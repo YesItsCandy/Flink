@@ -13,8 +13,18 @@
     padding: 2vh;
 }
 
+.preview-image {
+    margin: 1vh;
+    height: 20vh;
+    display: block;
+}
+
 @media (max-width: 1000px) {
     #featured {
         width: auto;
+    }
+
+    .preview-image {
+        height: auto;
     }
 }
