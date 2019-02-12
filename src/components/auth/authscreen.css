@@ -1,0 +1,38 @@
+#content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.authform{
+    display: flex;
+    flex-direction: column;
+}
+
+.authform *{
+    margin: .5vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
+}
+
+@media (max-width: 1000px) {
+    #content{
+        flex-direction: column;
+    }
+
+    .authform{
+        margin-top: 5vh;
+        width: 90%;
+    }
+
+    .authform input, .authform button{
+        font-size: 6vh;
+    }
+
+    .authform *{
+        margin: .5vh;
+        margin-left: .5vw;
+        margin-right: .5vw;
+    }
+}
