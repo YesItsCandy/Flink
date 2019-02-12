@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
 import qs from "querystring"
+import { UserContext } from '../../Context';
 
 export default class Login extends Component {
 
@@ -20,27 +21,29 @@ export default class Login extends Component {
         })
     }
 
-    loginOnEnter(evt, field) {
+    loginOnEnter(evt, usercontext) {
         if (evt.key === "Enter") {
-            this.login();
+            this.login(usercontext);
         }
     }
 
-    login() {
+    login(usercontext) {
         Axios.post("/login", qs.stringify({
             username: this.state.username,
             password: this.state.password
         })).then(res => {
-            if(res.data.success){
-                if(typeof this.props.onLoggedIn === "function"){
+            if (res.data.success) {
+                usercontext.setUser(res.data.user)
+                if (typeof this.props.onLoggedIn === "function") {
                     this.props.onLoggedIn()
                 }
-            }else{
+            } else {
                 this.setState({
                     error: "Invalid username or Password"
                 })
             }
-        }).catch(res => {
+        }).catch(err => {
+            console.error(err)
             this.setState({
                 error: "Server communication error"
             })
@@ -51,21 +54,27 @@ export default class Login extends Component {
         return (
             <div id="loginform" className="authform">
                 <h1>Login</h1>
-                <input
-                    value={this.state.username}
-                    onKeyPress={evt => this.loginOnEnter(evt)}
-                    onChange={evt => this.onChange(evt, "username")}
-                    placeholder="Username"
-                    type="text"
-                />
-                <input
-                    value={this.state.password}
-                    onKeyPress={evt => this.loginOnEnter(evt)}
-                    onChange={evt => this.onChange(evt, "password")}
-                    placeholder="Password"
-                    type="password"
-                />
-                <button onClick={evt => this.login()}>Login</button>
+                <UserContext.Consumer>
+                    {uc =>
+                        <>
+                            <input
+                                value={this.state.username}
+                                onKeyPress={evt => this.loginOnEnter(evt, uc)}
+                                onChange={evt => this.onChange(evt, "username")}
+                                placeholder="Username"
+                                type="text"
+                            />
+                            <input
+                                value={this.state.password}
+                                onKeyPress={evt => this.loginOnEnter(evt, uc)}
+                                onChange={evt => this.onChange(evt, "password")}
+                                placeholder="Password"
+                                type="password"
+                            />
+                            <button onClick={evt => this.login(uc)}>Login</button>
+                        </>
+                    }
+                </UserContext.Consumer>
                 {this.state.error && <p>{this.state.error}</p>}
             </div>
         )
