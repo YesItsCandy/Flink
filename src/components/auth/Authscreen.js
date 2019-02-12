@@ -8,7 +8,6 @@ export default class Auth extends Component {
     return (
       <>
         <Login />
-        <div className="vl"/>
         <Register />
       </>
     )
