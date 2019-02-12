@@ -1,0 +1,15 @@
+#authwrapper{
+    pointer-events: all;
+    background-color: rgba(0, 0, 0, 0.486);
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#authdialog{
+    background-color: rgb(253, 255, 240);
+    border-radius: 25px;
+    padding: 3vw;
+}

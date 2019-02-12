@@ -27,6 +27,10 @@ p {
     font-size: 2vh;
 }
 
+.link, button{
+    cursor: pointer;
+}
+
 h1 {
     font-size: 5vh;
 }
@@ -68,6 +72,14 @@ button {
     flex-direction: row;
 }
 
+#authmodal{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    pointer-events:none;
+    left: 0;
+    top: 0;
+}
 
 @media (max-width: 1000px) {
     .link,

@@ -4,6 +4,13 @@
 
 #navlinks .link {
     margin-right: 1vw;
+    display: block;
+}
+
+#navlinks {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
 }
 
 #header {
@@ -21,7 +28,6 @@
         font-size: 20vw;
     }
     #navlinks {
-        display: flex;
         justify-content: space-evenly;
         width: 90%;
     }

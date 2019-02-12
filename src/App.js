@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <div className="App" id="wrapper">
 
-        <Navbar />
+        <Navbar usemodal={true}/>
 
         <div id="content">
           <Router>
