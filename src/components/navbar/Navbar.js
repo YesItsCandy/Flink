@@ -4,6 +4,7 @@ import "./navbar.css"
 import Searchbar from '../input/Searchbar';
 import Authmodal from "../auth/Authmodal"
 import { UserContext } from '../../Context';
+import Axios from 'axios';
 
 export default class Navbar extends Component {
 
@@ -22,6 +23,15 @@ export default class Navbar extends Component {
         })
     }
 
+    logout(uc) {
+        Axios.get("/logout")
+            .then(res => {
+                uc.setUser(null)
+            }).catch(err => {
+                console.err(err)
+            })
+    }
+
     userButton = context => {
 
         if (!context.user) {
@@ -31,8 +41,8 @@ export default class Navbar extends Component {
                     {this.props.usemodal && <p onClick={evt => this.changeModal(true)} className="link">Login</p>}
                 </>
             )
-        }else{
-            return <a className="link" href="logout">Logout</a>
+        } else {
+            return <p onClick={evt => this.logout(context)} className="link">Logout</p>
         }
 
     }

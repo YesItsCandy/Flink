@@ -1,7 +1,11 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, session
+import json
 
 
 app = Flask(__name__)
+
+with open("secret.json") as secret:
+    app.secret_key = json.load(secret)["appsecret"]
 
 
 @app.route('/featured')
@@ -19,19 +23,32 @@ def featured():
 
 @app.route('/login', methods=['POST'])
 def login():
-    if("username" in request.form and "password" in request.form):
-        if(request.form["username"] == "azurediamond" and request.form["password"] == "hunter2"):
+    if("user" in session):
+        if(session["user"] is not None):
             return jsonify({
                 "success": True,
-                "user": {
+                "user": session["user"]
+            })
+    if("username" in request.form and "password" in request.form):
+        if(request.form["username"] == "azurediamond" and request.form["password"] == "hunter2"):
+            user = {
                     "username": "azurediamond",
                     "email": "azurediamond@example.com",
                     "profilepic": "https://via.placeholder.com/200x200&text=ProfilePic",
                     "artist": True
                 }
+            session["user"] = user
+            return jsonify({
+                "success": True,
+                "user": user
             })
     return jsonify({"success": False})
 
+
+@app.route('/logout')
+def logout():
+    session["user"] = None
+    return jsonify({"logout":True})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=3001)

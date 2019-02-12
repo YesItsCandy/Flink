@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import E404 from './components/error/E404';
 import Auth from './components/auth/Authscreen';
 import {UserContext} from "./Context"
-import Logout from './components/auth/Logout';
+import Axios from 'axios';
 
 class App extends Component {
 
@@ -24,6 +24,16 @@ class App extends Component {
     })
   }
 
+  componentDidMount(){
+    Axios.post("login").then(res => {
+      if(res.data.success){
+        this.setState({
+          user: res.data.user
+        })
+      }
+    })
+  }
+
   render() {
     return (
       <UserContext.Provider value={{
@@ -39,7 +49,6 @@ class App extends Component {
               <Switch>
                 <Route exact path="/" component={Homescreen} />
                 <Route exact path="/login" component={Auth} />
-                <Route exact path="/logout" component={Logout} />
                 <Route component={E404} status={404} />
               </Switch>
             </Router>
