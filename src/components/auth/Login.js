@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Axios from 'axios';
+import qs from "querystring"
 
 export default class Login extends Component {
 
@@ -7,7 +9,8 @@ export default class Login extends Component {
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            error: false
         }
     }
 
@@ -23,10 +26,24 @@ export default class Login extends Component {
         }
     }
 
-    login(){
-        this.setState ({
-            username: "",
-            password: ""
+    login() {
+        Axios.post("/login", qs.stringify({
+            username: this.state.username,
+            password: this.state.password
+        })).then(res => {
+            if(res.data.success){
+                if(typeof this.props.onLoggedIn === "function"){
+                    this.props.onLoggedIn()
+                }
+            }else{
+                this.setState({
+                    error: "Invalid username or Password"
+                })
+            }
+        }).catch(res => {
+            this.setState({
+                error: "Server communication error"
+            })
         })
     }
 
@@ -49,6 +66,7 @@ export default class Login extends Component {
                     type="password"
                 />
                 <button onClick={evt => this.login()}>Login</button>
+                {this.state.error && <p>{this.state.error}</p>}
             </div>
         )
     }

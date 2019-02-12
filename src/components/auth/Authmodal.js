@@ -12,7 +12,7 @@ export default class Authmodal extends Component {
                     <button
                         onClick={evt => (typeof this.props.onClose === "function") && this.props.onClose()}
                         >X</button>
-                    <Login />
+                    <Login onLoggedIn={evt => (typeof this.props.onClose === "function") && this.props.onClose()}/>
                     <Register />
                 </div>
             </div>
