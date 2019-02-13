@@ -1,5 +1,7 @@
 from flask import Flask, render_template, jsonify, request, session
 import json
+import db
+import hashlib
 
 
 app = Flask(__name__)
@@ -30,25 +32,38 @@ def login():
                 "user": session["user"]
             })
     if("username" in request.form and "password" in request.form):
-        if(request.form["username"] == "azurediamond" and request.form["password"] == "hunter2"):
-            user = {
-                    "username": "azurediamond",
-                    "email": "azurediamond@example.com",
-                    "profilepic": "https://via.placeholder.com/200x200&text=ProfilePic",
-                    "artist": True
-                }
-            session["user"] = user
-            return jsonify({
-                "success": True,
-                "user": user
-            })
-    return jsonify({"success": False})
+        user = db.get_user(request.form["username"])
+        if(user["password_hash"] == hashlib.sha512(request.form["password"].encode('utf-8') + user["salt"].encode('utf-8')).hexdigest()):
+            session["user"] = backenduser_to_safe_frontenduser(user)
+            return jsonify({"success": True, "user": session["user"]})
+    return jsonify({"success": False, "user": None})
+
+
+@app.route('/register', methods=['POST'])
+def register():
+    if("username" in request.form and "email" in request.form and "password" in request.form):
+        error = db.create_user(
+            request.form["username"],
+            request.form["password"],
+            request.form["email"]
+        )
+        if error is not None:
+            return jsonify({"status": "error", "error": error})
+    return jsonify({"status": "created"})
 
 
 @app.route('/logout')
 def logout():
-    session["user"] = None
-    return jsonify({"logout":True})
+    session["user"]=None
+    return jsonify({"logout": True})
+
+
+def backenduser_to_safe_frontenduser(user):
+    return {
+                "username": user["username"],
+                "isartist": user["isartist"],
+                "profilepic": user["profilepic"]
+            }
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=3001)

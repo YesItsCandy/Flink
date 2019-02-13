@@ -9,6 +9,8 @@ package-lock.json
 
 secret.json
 
+__pycache__
+
 # Runtime data
 pids
 *.pid
