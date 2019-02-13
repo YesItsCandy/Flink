@@ -25,23 +25,24 @@ def featured():
 
 @app.route('/login', methods=['POST'])
 def login():
-    if("user" in session):
-        if(session["user"] is not None):
+    if "user" in session :
+        if session["user"] is not None:
             return jsonify({
                 "success": True,
                 "user": session["user"]
             })
-    if("username" in request.form and "password" in request.form):
+    if "username" in request.form and "password" in request.form:
         user = db.get_user(request.form["username"])
-        if(user["password_hash"] == hashlib.sha512(request.form["password"].encode('utf-8') + user["salt"].encode('utf-8')).hexdigest()):
-            session["user"] = backenduser_to_safe_frontenduser(user)
-            return jsonify({"success": True, "user": session["user"]})
+        if(user is not None):
+            if user["password_hash"] == hashlib.sha512(request.form["password"].encode('utf-8') + user["salt"].encode('utf-8')).hexdigest():
+                session["user"] = backenduser_to_safe_frontenduser(user)
+                return jsonify({"success": True, "user": session["user"]})
     return jsonify({"success": False, "user": None})
 
 
 @app.route('/register', methods=['POST'])
 def register():
-    if("username" in request.form and "email" in request.form and "password" in request.form):
+    if "username" in request.form and "email" in request.form and "password" in request.form:
         error = db.create_user(
             request.form["username"],
             request.form["password"],
