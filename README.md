@@ -33,7 +33,7 @@ source flink-env/bin/activate
 On Windows
 
 ```CMD
-    flink-env\Scripts\activate.bat
+flink-env\Scripts\activate.bat
 ```
 ```BASH
 pip3 install -r requirements.txt
