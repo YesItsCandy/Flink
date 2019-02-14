@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import Axios from 'axios';
 import qs from "querystring"
 import { UserContext } from '../../Context';
+import { withRouter } from 'react-router-dom'
 
-export default class Register extends Component {
+export default withRouter(class Register extends Component {
     constructor(props) {
         super(props)
 
@@ -50,6 +51,10 @@ export default class Register extends Component {
                                 usercontext.setUser(res.data.user)
                                 if (typeof this.props.onLoggedIn === "function") {
                                     this.props.onLoggedIn()
+                                } else if (this.props.next) {
+                                    this.props.history.push(this.props.next)
+                                }else{
+                                    this.props.history.push("/")
                                 }
                             }
                         }).catch(err => {
@@ -106,4 +111,4 @@ export default class Register extends Component {
             </div>
         )
     }
-}
+})
