@@ -5,6 +5,7 @@ import Searchbar from '../input/Searchbar';
 import Authmodal from "../auth/Authmodal"
 import { UserContext } from '../../Context';
 import Axios from 'axios';
+import Cookies from 'universal-cookie';
 
 export default class Navbar extends Component {
 
@@ -24,6 +25,8 @@ export default class Navbar extends Component {
     }
 
     logout(uc) {
+        const cookies = new Cookies();
+        cookies.remove("user")
         Axios.get("/logout")
             .then(res => {
                 uc.setUser(null)
