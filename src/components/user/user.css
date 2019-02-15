@@ -1,0 +1,38 @@
+#user-banner {
+    width: 100%;
+    min-width: 400px;
+    height: 150px;
+    background-color: #f5d4ba;
+}
+#user-icon {
+    position: relative;
+    float: left;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    margin: 15px;
+    background-size: 100%;
+}
+#user-info {
+    position: relative;
+    float: left;
+    height: 150px;
+}
+#user-name {
+    display: table-cell;
+    font-size: 3rem;
+    height: 80px;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+#user-links {
+    height: 50px;
+    margin: 5px 0;
+}
+.user-link {
+    position: relative;
+    float: left;
+    height: 50px;
+    width: 50px;
+    margin: 0 10px;
+}

@@ -45,6 +45,43 @@ def login():
     return jsonify({"success": False})
 
 
+@app.route('/user/<username>')
+def user(username):
+    if username == 'you':
+        return jsonify({
+            'success': True,
+            'user': {
+                'username': 'you',
+                'profilepic': 'https://via.placeholder.com/200x200&text=ProfilePic',
+                'links': [
+                    {
+                        'site': 'twitter',
+                        'tag': 'you'
+                    },
+                    {
+                        'site': 'furaffinity',
+                        'tag': 'you'
+                    }
+                ]
+            }
+        })
+    if username == 'azurediamond':
+        return jsonify({
+            'success': True,
+            'user': {
+                'username': 'azurediamond',
+                'profilepic': 'https://via.placeholder.com/200x200&text=ProfilePic',
+                'links': [
+                    {
+                        'site': 'furaffinity',
+                        'tag': 'azurediamond'
+                    }
+                ]
+            }
+        })
+    return jsonify({'success': False})
+
+
 @app.route('/logout')
 def logout():
     session["user"] = None
