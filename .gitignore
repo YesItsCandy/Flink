@@ -9,6 +9,8 @@ package-lock.json
 
 secret.json
 
+settings.json
+
 __pycache__
 flink-env/*
 
