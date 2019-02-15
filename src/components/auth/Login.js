@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import Axios from 'axios';
 import qs from "querystring"
 import { UserContext } from '../../Context';
+import { withRouter } from 'react-router-dom'
 
-export default class Login extends Component {
+export default withRouter(class Login extends Component {
 
     constructor(props) {
         super(props)
@@ -36,6 +37,10 @@ export default class Login extends Component {
                 usercontext.setUser(res.data.user)
                 if (typeof this.props.onLoggedIn === "function") {
                     this.props.onLoggedIn()
+                } else if (this.props.next) {
+                    this.props.history.push(this.props.next)
+                }else{
+                    this.props.history.push("/")
                 }
             } else {
                 this.setState({
@@ -79,4 +84,4 @@ export default class Login extends Component {
             </div>
         )
     }
-}
+})

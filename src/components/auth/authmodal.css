@@ -6,10 +6,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 }
 
 #authdialog{
     background-color: rgb(253, 255, 240);
     border-radius: 25px;
     padding: 3vw;
+}
+
+@media (max-width: 1000px) {
+    #authdialog{
+        background-color: rgb(253, 255, 240);
+        border-radius: 0;
+        padding: 3vw;
+        width: 100%;
+    }
 }

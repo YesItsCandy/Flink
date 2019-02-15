@@ -9,6 +9,9 @@ package-lock.json
 
 secret.json
 
+__pycache__
+flink-env/*
+
 # Runtime data
 pids
 *.pid
