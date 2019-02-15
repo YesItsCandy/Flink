@@ -35,7 +35,7 @@ def login():
         user = db.get_user(request.form["username"])
         if(user is not None):
             if user["password_hash"] == hashlib.sha512(request.form["password"].encode('utf-8') + user["salt"].encode('utf-8')).hexdigest():
-                session["user"] = backenduser_to_safe_frontenduser(user)
+                session["user"] = backenduser_to_unsafe_frontenduser(user)
                 return jsonify({"success": True, "user": session["user"]})
     return jsonify({"success": False, "user": None})
 
@@ -54,40 +54,21 @@ def register():
 
 
 @app.route('/user/<username>')
-def user(username):
-    if username == 'you':
-        return jsonify({
-            'success': True,
-            'user': {
-                'username': 'you',
-                'profilepic': 'https://via.placeholder.com/200x200&text=ProfilePic',
-                'links': [
-                    {
-                        'site': 'twitter',
-                        'tag': 'you'
-                    },
-                    {
-                        'site': 'furaffinity',
-                        'tag': 'you'
-                    }
-                ]
-            }
-        })
-    if username == 'azurediamond':
-        return jsonify({
-            'success': True,
-            'user': {
-                'username': 'azurediamond',
-                'profilepic': 'https://via.placeholder.com/200x200&text=ProfilePic',
-                'links': [
-                    {
-                        'site': 'furaffinity',
-                        'tag': 'azurediamond'
-                    }
-                ]
-            }
-        })
-    return jsonify({'success': False})
+def get_user(username):
+    user = db.get_user(username)
+    if user is not None:
+        return jsonify(backenduser_to_safe_frontenduser(user))
+    return jsonify(None)
+
+
+@app.route('/user/')
+def get_logginin_user():
+    if "user" in session:
+        user = db.get_user(session["user"]["username"])
+        if user is not None:
+            session["user"] = backenduser_to_unsafe_frontenduser(user)
+            return jsonify(session["user"])
+    return jsonify(None)
 
 
 @app.route('/logout')
@@ -100,7 +81,35 @@ def backenduser_to_safe_frontenduser(user):
     return {
                 "username": user["username"],
                 "isartist": user["isartist"],
-                "profilepic": user["profilepic"]
+                "profilepic": user["profilepic"],
+                "socialmedia":{
+                    "twitter": user["twitter"] if user["twitter_public"] else None,
+                    "discord": user["discord"] if user["discord_public"] else None,
+                    "telegram": user["telegram"] if user["telegram_public"] else None,
+                    "furaffinity": user["furaffinity"] if user["furaffinity_public"] else None,
+                    "skype": user["skype"] if user["skype_public"] else None
+                }
+            }
+
+
+def backenduser_to_unsafe_frontenduser(user):
+    return {
+                "username": user["username"],
+                "isartist": user["isartist"],
+                "profilepic": user["profilepic"],
+                "email": user["email"],
+                "socialmedia":{
+                    "twitter": user["twitter"],
+                    "discord": user["discord"],
+                    "telegram": user["telegram"],
+                    "furaffinity": user["furaffinity"],
+                    "skype": user["skype"],
+                    "twitter_public":user["twitter_public"],
+                    "discord_public":user["discord_public"],
+                    "telegram_public":user["telegram_public"],
+                    "furaffinity_public":user["furaffinity_public"],
+                    "skype_public":user["skype_public"]
+                }
             }
 
 if __name__ == '__main__':
