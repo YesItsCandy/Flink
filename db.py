@@ -29,7 +29,7 @@ class controlled_cursor:
 def get_user(username):
     with controlled_cursor() as cursor:
         cursor.execute(sql.SQL("SELECT * FROM public.users WHERE username = {}")
-                       .format(sql.Literal(username)))
+                       .format(sql.Literal(username.lower())))
         return cursor.fetchone()
 
 
@@ -52,7 +52,7 @@ def update_user(username, data):
 	    WHERE username = {username};
         """)
         .format(
-            username=sql.Literal(username),
+            username=sql.Literal(username.lower()),
             email=sql.Literal(data["email"]),
             twitter=sql.Literal(data["twitter"]),
             furaffinity=sql.Literal(data["furaffinity"]),
@@ -76,7 +76,7 @@ def create_user(username, password, email):
                 sql.SQL(
                     "INSERT INTO public.users (username, email, password_hash, salt) VALUES ({username},{email},{password},{salt});")
                 .format(
-                    username=sql.Literal(username),
+                    username=sql.Literal(username.lower()),
                     email=sql.Literal(email),
                     password=sql.Literal(hashlib.sha512(password.encode(
                         'utf-8') + salt.encode('utf-8')).hexdigest()),
