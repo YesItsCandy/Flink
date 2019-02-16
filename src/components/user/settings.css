@@ -1,0 +1,23 @@
+#settingsscreen{
+    display: flex;
+    flex-direction: column;
+}
+
+#settingspanels{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+}
+
+#settingspanels * {
+    margin: .5vh;
+}
+
+.fabutton{
+    font-size: 2vh;
+    cursor: pointer;
+}
+
+.hidden{
+    display: none;
+}

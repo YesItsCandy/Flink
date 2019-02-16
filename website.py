@@ -53,7 +53,7 @@ def register():
     return jsonify({"status": "created"})
 
 
-@app.route('/user/<username>')
+@app.route('/user/<username>', methods=['GET'])
 def get_user(username):
     user = db.get_user(username)
     if user is not None:
@@ -61,7 +61,7 @@ def get_user(username):
     return jsonify(None)
 
 
-@app.route('/user/')
+@app.route('/user', methods=['GET'])
 def get_logginin_user():
     if "user" in session:
         user = db.get_user(session["user"]["username"])
@@ -69,6 +69,13 @@ def get_logginin_user():
             session["user"] = backenduser_to_unsafe_frontenduser(user)
             return jsonify(session["user"])
     return jsonify(None)
+
+@app.route('/user', methods=['POST'])
+def update_user():
+    if "user" in session:
+        db.update_user(session["user"]["username"], request.form)
+        return jsonify({"status":"updated"})
+    return jsonify({"status": "error", "error" : "not logged in"})
 
 
 @app.route('/logout')
