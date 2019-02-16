@@ -25,11 +25,11 @@ export default class Navbar extends Component {
     }
 
     logout(uc) {
-        const cookies = new Cookies();
-        cookies.remove("user")
         Axios.get("/logout")
             .then(res => {
                 uc.setUser(null)
+                const cookies = new Cookies();
+                cookies.set('user', null, { path: '/' });
             }).catch(err => {
                 console.err(err)
             })

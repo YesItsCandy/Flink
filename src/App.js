@@ -18,12 +18,13 @@ class App extends Component {
     this.cookies = new Cookies();
 
     this.state = {
-      user: this.cookies.get("user")
+      user: typeof this.cookies.get("user") === "string"?null:this.cookies.get("user")
     }
   }
 
 
   setUser(user) {
+    this.cookies.set('user', user, { path: '/' });
     this.setState({
       user: user
     })
